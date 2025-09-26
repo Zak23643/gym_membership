@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+
+        <!-- Main Top Level Menu -->
+        <menuitem
+            id="menu_gym_root"
+            name="Gym"
+            web_icon="gym_membership,static/description/icon.png"
+            sequence="10"/>
+
+        <!-- Memberships Menu -->
+        <menuitem
+            id="menu_gym_memberships"
+            name="Memberships"
+            parent="menu_gym_root"
+            action="action_gym_member_membership"
+            sequence="10"/>
+
+        <!-- Configuration Menu -->
+        <menuitem
+            id="menu_gym_configuration"
+            name="Configuration"
+            parent="menu_gym_root"
+            sequence="100"/>
+
+        <!-- Membership Plans under Configuration -->
+        <menuitem
+            id="menu_gym_membership_plans"
+            name="Membership Plans"
+            parent="menu_gym_configuration"
+            action="action_gym_membership_plan"
+            sequence="10"/>
+
+    </data>
+</odoo>

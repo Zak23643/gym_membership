@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+
+        <!-- list/List View for Member Memberships -->
+        <record id="view_gym_member_membership_tree" model="ir.ui.view">
+            <field name="name">gym.member.membership.list</field>
+            <field name="model">gym.member.membership</field>
+            <field name="arch" type="xml">
+                <list string="Member Memberships"
+                      decoration-success="state == 'active'"
+                      decoration-muted="state == 'expired'"
+                      decoration-warning="state == 'draft'"
+                      decoration-danger="state == 'cancelled'">
+                    <field name="name"/>
+                    <field name="member_id"/>
+                    <field name="plan_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'active'"
+                           decoration-muted="state == 'expired'"
+                           decoration-warning="state == 'draft'"
+                           decoration-danger="state == 'cancelled'"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View for Member Memberships -->
+        <record id="view_gym_member_membership_form" model="ir.ui.view">
+            <field name="name">gym.member.membership.form</field>
+            <field name="model">gym.member.membership</field>
+            <field name="arch" type="xml">
+                <form string="Member Membership">
+                    <header>
+                        <button name="action_activate" string="Activate" type="object" class="btn-primary" invisible="state not in ['draft']"/>
+                        <button name="action_cancel" string="Cancel" type="object" invisible="state not in ['active', 'draft']"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,active,expired"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="member_id"/>
+                                <field name="plan_id"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <!-- Chatter -->
+                <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to open Member Membership views -->
+        <record id="action_gym_member_membership" model="ir.actions.act_window">
+            <field name="name">Member Memberships</field>
+            <field name="res_model">gym.member.membership</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new member subscription
+                </p><p>
+                    Assign a membership plan to one of your gym members.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
